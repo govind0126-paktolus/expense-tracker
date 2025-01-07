@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Construction Expense Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>House Construction Expense Tracker</h1>
+        <div class="form-section">
+            <input type="text" id="expenseName" placeholder="Expense Name" />
+            <input type="number" id="expenseAmount" placeholder="Amount" />
+            <input type="date" id="expenseDate" />
+            <button id="addExpense">Add Expense</button>
+        </div>
+        <h2>Total Spent: <span id="totalAmount">0</span></h2>
+        <div id="expenseList"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
