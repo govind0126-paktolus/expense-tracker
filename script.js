@@ -11,25 +11,26 @@ let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
 
 // Function to format currency
 function formatCurrency(amount) {
-  return (
-    new Intl.NumberFormat("en-IN", {
-      maximumFractionDigits: 2,
-    }).format(amount) + " ₹"
-  );
+    return new Intl.NumberFormat('en-IN', {
+        maximumFractionDigits: 2,
+    }).format(amount) + " ₹";
 }
 
 // Function to render the expense list
 function renderExpenses() {
-  expenseList.innerHTML = "";
-  let total = 0;
+    expenseList.innerHTML = "";
+    let total = 0;
 
-  expenses.forEach((expense) => {
-    total += parseFloat(expense.amount);
+    // Sort expenses by date (latest first)
+    expenses.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    const expenseItem = document.createElement("div");
-    expenseItem.className = "expense-item";
+    expenses.forEach((expense) => {
+        total += parseFloat(expense.amount);
 
-    expenseItem.innerHTML = `
+        const expenseItem = document.createElement("div");
+        expenseItem.className = "expense-item";
+
+        expenseItem.innerHTML = `
             <div>
                 <span><strong>${expense.name}</strong></span><br>
                 <span>${expense.date}</span>
@@ -39,29 +40,29 @@ function renderExpenses() {
             </div>
         `;
 
-    expenseList.appendChild(expenseItem);
-  });
+        expenseList.appendChild(expenseItem);
+    });
 
-  totalAmountDisplay.textContent = formatCurrency(total);
+    totalAmountDisplay.textContent = formatCurrency(total);
 }
 
 // Function to add a new expense
 addExpenseButton.addEventListener("click", () => {
-  const name = expenseNameInput.value.trim();
-  const amount = parseFloat(expenseAmountInput.value.trim());
-  const date = expenseDateInput.value;
+    const name = expenseNameInput.value.trim();
+    const amount = parseFloat(expenseAmountInput.value.trim());
+    const date = expenseDateInput.value;
 
-  if (name && amount && amount > 0 && date) {
-    expenses.push({ name, amount, date });
-    localStorage.setItem("expenses", JSON.stringify(expenses));
-    renderExpenses();
+    if (name && amount && amount > 0 && date) {
+        expenses.push({ name, amount, date });
+        localStorage.setItem("expenses", JSON.stringify(expenses));
+        renderExpenses();
 
-    expenseNameInput.value = "";
-    expenseAmountInput.value = "";
-    expenseDateInput.value = "";
-  } else {
-    alert("Please enter a valid name, amount, and date!");
-  }
+        expenseNameInput.value = "";
+        expenseAmountInput.value = "";
+        expenseDateInput.value = "";
+    } else {
+        alert("Please enter a valid name, amount, and date!");
+    }
 });
 
 // Initial render
