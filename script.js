@@ -9,6 +9,15 @@ const expenseList = document.getElementById("expenseList");
 // Load expenses from local storage
 let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
 
+// Function to format currency
+function formatCurrency(amount) {
+  return (
+    new Intl.NumberFormat("en-IN", {
+      maximumFractionDigits: 2,
+    }).format(amount) + " ₹"
+  );
+}
+
 // Function to render the expense list
 function renderExpenses() {
   expenseList.innerHTML = "";
@@ -26,14 +35,14 @@ function renderExpenses() {
                 <span>${expense.date}</span>
             </div>
             <div>
-                <span>${expense.amount}</span>
+                <span>${formatCurrency(expense.amount)}</span>
             </div>
         `;
 
     expenseList.appendChild(expenseItem);
   });
 
-  totalAmountDisplay.textContent = total.toFixed(2);
+  totalAmountDisplay.textContent = formatCurrency(total);
 }
 
 // Function to add a new expense
