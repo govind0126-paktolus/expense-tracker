@@ -22,6 +22,7 @@ function formatCurrency(amount) {
 function renderExpenses() {
   expenseList.innerHTML = "";
   let total = 0;
+  console.log(25, total);
 
   // Sort expenses by date (latest first)
   expenses.sort((a, b) => new Date(b.date) - new Date(a.date));
